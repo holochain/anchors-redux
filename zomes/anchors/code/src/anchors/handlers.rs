@@ -5,7 +5,7 @@ use hdk::{
         entry::Entry,
     },
     holochain_persistence_api::{
-        cas::content::{Address, AddressableContent},
+        cas::content::{Address},
     },
 };
 
@@ -24,12 +24,13 @@ pub (crate) fn root_anchor() -> ZomeApiResult<Address> {
         ROOT_ANCHOR_ENTRY.into(),
         RootAnchor {anchor_type: "root_anchor".into()}.into()
     );
-    let root_anchor_entry_address = root_anchor_entry.address();
-    if hdk::get_entry(&root_anchor_entry_address)?.is_none() {
-        Ok(hdk::commit_entry(&root_anchor_entry)?)
-    } else {
-        Ok(root_anchor_entry_address)
-    }
+    // let root_anchor_entry_address = root_anchor_entry.address();
+    // if hdk::get_entry(&root_anchor_entry_address)?.is_none() {
+    //     Ok(hdk::commit_entry(&root_anchor_entry)?)
+    // } else {
+    //     Ok(root_anchor_entry_address)
+    // }
+    Ok(hdk::commit_entry(&root_anchor_entry)?)
 }
 
 pub(crate) fn handle_create_anchor(anchor_type: String, anchor_text: String) -> ZomeApiResult<Address> {
