@@ -42,7 +42,7 @@ pub fn root_anchor_definition() -> ValidatingEntryType {
         },
         links: [
             to!(
-                ROOT_ANCHOR_LINK_TO,
+                ANCHOR_ENTRY,
                 link_type: ROOT_ANCHOR_LINK_TO,
 
                 validation_package: || {

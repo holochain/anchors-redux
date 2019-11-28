@@ -50,9 +50,9 @@ orchestrator.registerScenario("Create an anchor", async (s, t) => {
   const {alice, bob} = await s.players({alice: conductorConfig, bob: conductorConfig})
   const addr = await alice.call("anchors", "anchors", "create_anchor", {"anchor_type": "model", "anchor_text": "soft-tail"})
   await s.consistency()
-  console.log('address of root' + addr)
+  console.log('address of root' + JSON.stringify(addr))
   const result = await alice.call("anchors", "anchors", "get_anchor", {"anchor_address": addr.Ok})
-  t.deepEqual(result, { Ok: { App: [ 'anchor', '{"anchor_type":"model","anchor_text":"soft-tail"}' ] } })
+  t.deepEqual(result, { Ok: { App: [ 'anchor', '{"anchor_type":"model","anchor_text":"soft-tail"}' ] } }, JSON.stringify(result))
 })
 
 orchestrator.run()
