@@ -19,6 +19,9 @@ use crate::{
     ANCHOR_ENTRY
 };
 
+// Will only create a new root anchor if the Agent is not synched or its first hardTimeout
+// will accumulate headers for each agent that adds.
+// Ideally it would be cool to be able to linkn to the root_anchor_entry.address() and it not be an entry.
 pub (crate) fn root_anchor() -> ZomeApiResult<Address> {
     let root_anchor_entry = Entry::App(
         ROOT_ANCHOR_ENTRY.into(),
@@ -47,4 +50,13 @@ pub(crate) fn handle_create_anchor(anchor_type: String, anchor_text: String) -> 
 
 pub(crate) fn handle_get_anchor(anchor_address: Address) -> ZomeApiResult<Option<Entry>> {
     hdk::get_entry(&anchor_address)
+}
+
+pub(crate) fn handle_get_anchors() -> ZomeApiResult<Vec<Entry>> {
+    let root_anchor_entry = Entry::App(
+        ROOT_ANCHOR_ENTRY.into(),
+        RootAnchor {anchor_type: "root_anchor".into()}.into()
+    );
+    let root_anchor_entry_address = root_anchor_entry.address();
+    hdk::get_links(&root_anchor_entry_address)?
 }

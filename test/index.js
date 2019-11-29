@@ -29,7 +29,10 @@ const orchestrator = new Orchestrator({
 
   globalConfig: {
     logger: false,
-    network: 'memory',  // must use singleConductor middleware if using in-memory network
+    network: {
+      type: 'sim2h',
+      sim2h_url: 'wss://localhost:9000'
+    }  // must use singleConductor middleware if using in-memory network
   },
 
   // the following are optional:
