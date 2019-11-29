@@ -64,4 +64,9 @@ mod anchors {
     fn get_anchor(anchor_address: Address) -> ZomeApiResult<Option<Entry>> {
         anchors::handlers::handle_get_anchor(anchor_address)
     }
+
+    #[zome_fn("hc_public")]
+    fn get_anchors() -> ZomeApiResult<Vec<Address>> {
+        anchors::handlers::handle_get_anchors()
+    }
 }

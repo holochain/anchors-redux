@@ -53,9 +53,20 @@ orchestrator.registerScenario("Create an anchor", async (s, t) => {
   const {alice, bob} = await s.players({alice: conductorConfig, bob: conductorConfig})
   const addr = await alice.call("anchors", "anchors", "create_anchor", {"anchor_type": "model", "anchor_text": "soft-tail"})
   await s.consistency()
+  t.equal(addr.Ok.length, 46)
   console.log('address of root' + JSON.stringify(addr))
-  const result = await alice.call("anchors", "anchors", "get_anchor", {"anchor_address": addr.Ok})
-  t.deepEqual(result, { Ok: { App: [ 'anchor', '{"anchor_type":"model","anchor_text":"soft-tail"}' ] } }, JSON.stringify(result))
+  const result = await bob.call("anchors", "anchors", "get_anchor", {"anchor_address": addr.Ok})
+  t.deepEqual(result, { Ok: { App: [ 'anchor', '{"anchor_type":"model","anchor_text":"soft-tail"}' ] } })
+})
+
+orchestrator.registerScenario("Create two anchors and retrieve", async (s, t) => {
+  const {alice, bob} = await s.players({alice: conductorConfig, bob: conductorConfig})
+  await alice.call("anchors", "anchors", "create_anchor", {"anchor_type": "model", "anchor_text": "soft-tail"})
+  await bob.call("anchors", "anchors", "create_anchor", {"anchor_type": "model", "anchor_text": "dyna"})
+  await s.consistency()
+  const result = await alice.call("anchors", "anchors", "get_anchors", {})
+  console.log(result)
+  t.deepEqual(result.Ok.length, 2)
 })
 
 orchestrator.run()
