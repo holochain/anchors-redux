@@ -67,6 +67,19 @@ pub fn anchor_definition() -> ValidatingEntryType {
         },
         validation: | _validation_data: hdk::EntryValidationData<Anchor>| {
             Ok(())
-        }
+        },
+        links: [
+            to!(
+                "motorcycle",
+                link_type: "motorcycle_link_to",
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
+                },
+
+                validation: |_validation_data: hdk::LinkValidationData| {
+                    Ok(())
+                }
+            )
+        ]
     )
 }

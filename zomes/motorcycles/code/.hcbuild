@@ -1,0 +1,41 @@
+{
+  "steps": [
+    {
+      "command": "cargo",
+      "arguments": [
+        "build",
+        "--release",
+        "--target=wasm32-unknown-unknown"
+      ]
+    },
+    {
+      "command": "wasm-gc",
+      "arguments": ["target/wasm32-unknown-unknown/release/motorcycles.wasm"]
+    },
+    {
+      "command": "wasm-opt",
+      "arguments": [
+        "-Oz",
+        "--vacuum",
+        "target/wasm32-unknown-unknown/release/motorcycles.wasm"
+      ]
+    },
+    {
+      "command": "wasm2wat",
+      "arguments": [
+        "target/wasm32-unknown-unknown/release/motorcycles.wasm",
+        "-o",
+        "target/wasm32-unknown-unknown/release/motorcycles.wat"
+      ]
+    },
+    {
+      "command": "wat2wasm",
+      "arguments": [
+        "target/wasm32-unknown-unknown/release/motorcycles.wat",
+        "-o",
+        "target/wasm32-unknown-unknown/release/motorcycles.wasm"
+      ]
+    }
+  ],
+  "artifact": "target/wasm32-unknown-unknown/release/motorcycles.wasm"
+}
