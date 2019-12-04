@@ -77,6 +77,11 @@ orchestrator.registerScenario("Create a motorcycle", async (s, t) => {
   console.log('address of root' + JSON.stringify(addr))
   const result = await bob.call("anchors", "motorcycles", "get_motorcycle", {"address": addr.Ok})
   t.deepEqual(result, { Ok: { App: [ 'motorcycle', '{"name":"Fat Boy"}' ] } })
+  const all_motor_cycles_r = await bob.call("anchors", "motorcycles", "get_motorcycles", {"anchor_type": "model", "anchor_text": "soft-tail"});
+  t.ok(all_motor_cycles_r);
+  const all_motor_cycles = all_motor_cycles_r.Ok;
+  t.deepEqual(all_motor_cycles, [{"name": "Fat Boy"}]);
+
 })
 
 orchestrator.run()

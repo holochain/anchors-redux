@@ -28,9 +28,9 @@ pub mod anchors;
 use hdk::prelude::*;
 
 
-pub static ANCHOR_ENTRY: &str = "anchor";
-pub static ROOT_ANCHOR_ENTRY: &str = "root_anchor";
-pub static ROOT_ANCHOR_LINK_TO: &str = "anchors";
+pub static ANCHOR_ENTRY: &str = "anchor2";
+pub static ROOT_ANCHOR_ENTRY: &str = "root_anchor2";
+pub static ROOT_ANCHOR_LINK_TO: &str = "anchors2";
 
 #[zome]
 mod anchors {

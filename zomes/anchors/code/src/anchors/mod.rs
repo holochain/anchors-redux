@@ -70,8 +70,8 @@ pub fn anchor_definition() -> ValidatingEntryType {
         },
         links: [
             to!(
-                "motorcycle",
-                link_type: "motorcycle_link_to",
+                "motorcycle2",
+                link_type: "motorcycle_link_to2",
                 validation_package: || {
                     hdk::ValidationPackageDefinition::Entry
                 },
